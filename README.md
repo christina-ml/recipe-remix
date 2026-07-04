@@ -10,7 +10,7 @@ Built as a learning project and an open-source repo for devs interested. Contrib
 
 ## Stack
 
-- **Backend**: Python, FastAPI, SQLAlchemy, PostgreSQL
+- **Backend**: Python3, FastAPI, SQLAlchemy, PostgreSQL
 - **Frontend**: React (Vite), Tailwind CSS
 - **Infra**: Docker Compose (for local Postgres), GitHub Actions (CI)
 
@@ -50,13 +50,13 @@ docker compose up -d
 
 ```bash
 cd backend
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env
 
 # Load sample data (a few recipes + common substitutions)
-python -m app.seed_data
+python3 -m app.seed_data
 
 # Run the API
 uvicorn app.main:app --reload
