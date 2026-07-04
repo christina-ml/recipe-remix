@@ -36,6 +36,33 @@ Some categories of contribution that don't require deep context on the codebase:
 
 Open an issue using the relevant template. Include repro steps for bugs.
 
+## Commit message convention
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) for commit messages. Format:
+
+    <type>: <short summary>
+
+    <optional longer description>
+
+Common types used in this repo:
+
+| Type       | Use for                                                |
+| ---------- | ------------------------------------------------------ |
+| `feat`     | A new feature                                          |
+| `fix`      | A bug fix                                              |
+| `docs`     | Documentation only (README, CONTRIBUTING, comments)    |
+| `test`     | Adding or fixing tests, no production code change      |
+| `refactor` | Code change that's neither a fix nor a new feature     |
+| `chore`    | Maintenance (deps, config, tooling) — no source change |
+
+Examples from this repo:
+
+- `feat: add kosher diet filter`
+- `fix: correct gluten-free denylist missing soy sauce`
+- `docs: add stop/restart instructions to README`
+
+Not required for every tiny commit, but appreciated on PRs — it makes the history easy to scan and helps us write better release notes later. See the [Conventional Commits spec](https://www.conventionalcommits.org/) for the full set of types and rules (including `!` for breaking changes, scopes, etc.).
+
 ## Code of conduct
 
 Be respectful, assume good faith, and keep feedback constructive. This is a learning-friendly project — questions are always welcome.
