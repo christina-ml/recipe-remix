@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-display {
+  font-family: 'Fraunces', serif;
+}
+
+/* A hairline "torn index card" rule used between recipe sections */
+.rule {
+  border-top: 1px solid #E4DAC8;
+}
