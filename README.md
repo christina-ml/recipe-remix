@@ -103,6 +103,85 @@ Remixing a recipe means:
 This is intentionally simple for the MVP — see [CONTRIBUTING.md](CONTRIBUTING.md)
 for ideas on how to extend it (flavor-profile matching, more diets, etc).
 
+## Stopping and restarting the app
+
+To stop everything: `Ctrl+C` in the terminals running `uvicorn` and `npm run dev`,
+then `docker compose down` (no `-v` flag) to stop Postgres while keeping your data.
+
+To start again: `docker compose up -d`, wait for `docker compose ps` to show
+`healthy`, then start the backend (`uvicorn app.main:app --reload`) and frontend
+(`npm run dev`) as usual. No need to reinstall dependencies or reseed the
+database — those are one-time setup steps, not part of the regular start/stop
+cycle.
+
+**Why this order matters:**
+
+- **Postgres needs a moment to become `healthy` before the backend can connect
+  reliably.** Starting `uvicorn` too early can produce misleading connection
+  errors that look like a config problem but are really just a timing issue.
+- **`docker compose down` (without `-v`) stops the container but keeps its data
+  volume**, so your recipes and substitutions survive a restart. Adding `-v`
+  _deletes_ that volume — only do that intentionally, e.g. to reset the
+  database to a clean state.
+- **Dependencies and seed data only need to be (re)done once** — reinstalling
+  or reseeding on every restart is unnecessary and, in the case of seeding,
+  will just skip since the check in `seed_data.py` sees existing rows.
+
+## Steps to Shut down (stop) & Restart the app
+
+**Shut down:**
+
+1. In the terminal running `uvicorn`, press `Ctrl+C`.
+2. In the terminal running `npm run dev` (frontend), press `Ctrl+C`.
+3. Stop Postgres:
+
+bash
+
+`cd ~/Desktop/projects-2026/recipe-remix
+docker compose down`
+
+(No `-v` this time — you want to _keep_ the data you seeded, not wipe it.)
+
+**Start back up:**
+
+1. Postgres:
+
+bash
+
+`docker compose up -d
+docker compose ps        # confirm "healthy" before moving on`
+
+1. Backend (new terminal):
+
+bash
+
+`cd ~/Desktop/projects-2026/recipe-remix/backend
+source venv/bin/activate
+uvicorn app.main:app --reload`
+
+No need to re-run `pip install` or `python3 -m app.seed_data` this time — the venv and the database both already have what they need from before.
+
+1. Frontend (another terminal):
+
+bash
+
+`cd ~/Desktop/projects-2026/recipe-remix/frontend
+npm run dev`
+
+1. Check `http://localhost:5173` — your seeded recipes (and anything you added, like the stir-fry) should still be there, since you didn't wipe the volume this time.
+
+Christina’s note: In another terminal, you can also run:
+
+`curl http://localhost:8000/health`
+to see if it says `{"status":"ok"}%`
+
+## Troubleshooting
+
+**Postgres connection errors (e.g. "role does not exist"):** if you have another
+Postgres instance already running locally on port 5432, it can conflict with
+Docker's container. This project maps Docker's Postgres to port `5433` instead
+(see `docker-compose.yml` and `.env.example`) to avoid that collision.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
