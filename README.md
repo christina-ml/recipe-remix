@@ -182,6 +182,10 @@ Postgres instance already running locally on port 5432, it can conflict with
 Docker's container. This project maps Docker's Postgres to port `5433` instead
 (see `docker-compose.yml` and `.env.example`) to avoid that collision.
 
+## Contributing
+
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for setup notes, good first issue ideas, and PR guidelines.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
