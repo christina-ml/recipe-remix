@@ -6,7 +6,13 @@ from app.routers import recipes, substitutions
 
 # Creates tables if they don't exist yet. For real migrations (renaming
 # columns, etc.) we use Alembic instead — see backend/alembic/.
-Base.metadata.create_all(bind=engine)
+# Wrapped in try/except so importing this module doesn't crash in
+# environments without a reachable database (e.g. CI, where tests use
+# their own in-memory SQLite instead).
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print(f"Warning: could not create tables at startup: {e}")
 
 app = FastAPI(
     title="Recipe Remix API",
