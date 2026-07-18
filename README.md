@@ -18,6 +18,12 @@ Built as a learning project and an open-source repo for devs interested. Contrib
 
 ```
 recipe-remix/
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── good_first_issue.md
+│   │   └── bug_report.md
+│   └── workflows/
+│       └── ci.yml              # Runs backend tests + frontend build on PRs
 ├── backend/
 │   ├── app/
 │   │   ├── main.py            # FastAPI app + router registration
@@ -29,14 +35,21 @@ recipe-remix/
 │   │   └── routers/
 │   │       ├── recipes.py
 │   │       └── substitutions.py
-│   └── tests/
+│   ├── tests/
+│   └── .env.example
 ├── frontend/
 │   └── src/
 │       ├── App.jsx
 │       ├── api.js
 │       └── components/
-└── docker-compose.yml          # Local Postgres
+├── .gitignore
+├── CONTRIBUTING.md
+├── LICENSE
+├── docker-compose.yml          # Local Postgres
+└── README.md
 ```
+
+> **Note:** Run this command from the root directory to view the file tree `git ls-files | tree --fromfile -a --dirsfirst -L 3`
 
 ## Getting started
 
