@@ -15,10 +15,20 @@ def get_recipe(db: Session, recipe_id: int):
 
 
 def create_recipe(db: Session, recipe: schemas.RecipeCreate):
+    processed_ingredients = []
+    
+    for ing in recipe.ingredients:
+        saved_ingredient = get_or_create_ingredient(db, name=ing.name)
+        
+        processed_ingredients.append({
+            "name": saved_ingredient.name,  
+            "quantity": ing.quantity
+        })
+    
     db_recipe = models.Recipe(
         title=recipe.title,
         description=recipe.description,
-        ingredients=[ing.model_dump() for ing in recipe.ingredients],
+        ingredients=processed_ingredients,
         steps=recipe.steps,
         tags=recipe.tags,
     )
@@ -38,10 +48,11 @@ def delete_recipe(db: Session, recipe_id: int) -> bool:
 
 
 def get_or_create_ingredient(db: Session, name: str) -> models.Ingredient:
-    name = name.strip().lower()
+    name = name.strip()
+    search_name = name.strip().lower()
     ingredient = (
         db.query(models.Ingredient)
-        .filter(func.lower(models.Ingredient.name) == name)
+        .filter(func.lower(models.Ingredient.name) == search_name)
         .first()
     )
     if ingredient:
