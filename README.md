@@ -17,36 +17,46 @@ Built as a learning project and an open-source repo for devs interested. Contrib
 ## Project structure
 
 ```
-recipe-remix/
-├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── good_first_issue.md
-│   │   └── bug_report.md
-│   └── workflows/
-│       └── ci.yml              # Runs backend tests + frontend build on PRs
-├── backend/
-│   ├── app/
-│   │   ├── main.py            # FastAPI app + router registration
-│   │   ├── models.py          # SQLAlchemy ORM models
-│   │   ├── schemas.py         # Pydantic request/response schemas
-│   │   ├── crud.py            # DB access helpers
-│   │   ├── substitutions.py   # The substitution/remix engine
-│   │   ├── seed_data.py       # Sample recipes + substitutions
-│   │   └── routers/
-│   │       ├── recipes.py
-│   │       └── substitutions.py
-│   ├── tests/
-│   └── .env.example
-├── frontend/
-│   └── src/
-│       ├── App.jsx
-│       ├── api.js
-│       └── components/
+├── .github
+│   ├── ISSUE_TEMPLATE
+│   │   ├── bug_report.md
+│   │   └── good_first_issue.md
+│   └── workflows
+│       └── ci.yml
+├── backend
+│   ├── app
+│   │   ├── routers
+│   │   ├── __init__.py
+│   │   ├── crud.py
+│   │   ├── database.py
+│   │   ├── main.py
+│   │   ├── models.py
+│   │   ├── schemas.py
+│   │   ├── seed_data.py
+│   │   └── substitutions.py
+│   ├── tests
+│   │   ├── __init__.py
+│   │   └── test_recipes.py
+│   ├── .env.example
+│   └── requirements.txt
+├── frontend
+│   ├── src
+│   │   ├── components
+│   │   ├── App.jsx
+│   │   ├── api.js
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   └── vite.config.js
 ├── .gitignore
 ├── CONTRIBUTING.md
 ├── LICENSE
-├── docker-compose.yml          # Local Postgres
-└── README.md
+├── README.md
+└── docker-compose.yml
 ```
 
 > **Note:** Run this command from the root directory to view the file tree `git ls-files | tree --fromfile -a --dirsfirst -L 3`
