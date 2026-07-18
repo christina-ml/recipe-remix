@@ -6,15 +6,16 @@ labels: bug
 assignees: ""
 ---
 
-**Describe the bug**
+# **Describe the bug**
+
 What happened, and what did you expect instead?
 
-**Steps to reproduce**
+# **Steps to reproduce**
 
 1.
 2.
 
-**Environment**
+# **Environment**
 
 - Backend or frontend?
 - OS / browser (if frontend):
