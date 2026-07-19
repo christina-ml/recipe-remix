@@ -101,11 +101,22 @@ export default function RecipeDetail() {
                       {ing.name}
                     </span>
                   </div>
-                  {flag?.flagged && !flag.suggestion && (
-                    <p className="text-xs text-char/40 ml-4 mt-0.5 italic">
-                      no known substitution yet — open an issue!
-                    </p>
-                  )}
+                  {flag?.flagged && !flag.suggestion && (() => {
+                    const dietLabel = DIETS.find(d => d.key === diet)?.label || diet
+                    const issueTitle = `No substitution for ${ing.name} (${dietLabel})`
+                    const issueBody = `Ingredient: ${ing.name}\nDiet: ${dietLabel}\n\nPlease suggest a substitution for this ingredient.`
+                    const issueUrl = `https://github.com/christina-ml/recipe-remix/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}&template=good_first_issue`
+                    return (
+                      <a
+                        href={issueUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-char/40 ml-4 mt-0.5 italic underline hover:text-spice"
+                      >
+                        no known substitution yet — open an issue
+                      </a>
+                    )
+                  })()}
                   {flag?.suggestion && (
                     <SubstitutionBadge suggestion={flag.suggestion} />
                   )}
